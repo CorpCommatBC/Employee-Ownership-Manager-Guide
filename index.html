@@ -626,6 +626,14 @@ body {
 .foot .l { display: flex; align-items: center; gap: 13px; }
 .foot .l img { height: 26px; }
 .foot .l span { font-size: 13px; color: var(--bc-cool-gray-dark); }
+.foot .l a { font-size: 13px; color: var(--bc-cool-gray-dark); text-decoration: underline; text-underline-offset: 2px;
+  text-decoration-color: var(--bc-cool-gray-med); transition: color .15s var(--ease); }
+.foot .l a:hover { color: var(--ux-accent); text-decoration-color: var(--ux-accent); }
+.visitlink { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500;
+  color: var(--ux-accent); background: #fff; border: 1px solid var(--border); border-radius: 999px;
+  padding: 8px 14px; text-decoration: none; transition: all .15s var(--ease); white-space: nowrap; }
+.visitlink:hover { border-color: var(--ux-accent); background: color-mix(in oklab, var(--ux-accent), white 95%); }
+.visitlink .ic { width: 15px; height: 15px; }
 .foot .m { font-size: 12px; color: var(--bc-cool-gray-dark); letter-spacing: .02em; }
 
 /* ============================ RESPONSIVE ============================ */
@@ -773,7 +781,7 @@ window.GUIDE = {
     routes: [
       { to: "stockinquiries@brwncald.com", for: "Stock mechanics or account questions", email: true },
       { to: "Your group director", for: "Questions in the four restricted categories above", email: false },
-      { to: "The Employee Ownership site", for: "Everything else", email: false },
+      { to: "The Employee Ownership site", for: "Everything else", email: false, href: "https://brwncald.sharepoint.com/SitePages/Employee-Ownership-Home.aspx?csf=1&web=1&e=fwNWKu&CID=b047bcc7-ec44-4b54-85be-de2b68edaed9" },
     ],
   },
 
@@ -789,6 +797,7 @@ window.GUIDE = {
   },
 
   contact: "stockinquiries@brwncald.com",
+  site: "https://brwncald.sharepoint.com/SitePages/Employee-Ownership-Home.aspx?csf=1&web=1&e=fwNWKu&CID=b047bcc7-ec44-4b54-85be-de2b68edaed9",
   footer: "Find more on the Employee Ownership site",
   meta: "Brown and Caldwell  ·  Internal Use Only",
 };
@@ -854,6 +863,7 @@ window.__LOGOP="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABwkAAAF6CAYAAADia2
     user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>',
     pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+    ext: '<path d="M14 4h6v6M20 4l-9 9"/><path d="M19 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
     spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>'
   };
 
@@ -1119,7 +1129,7 @@ window.__LOGOP="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABwkAAAF6CAYAAADia2
       routes.appendChild(h("div", { class: "r" },
         h("span", { class: "ricon" }, ic(routeIcons[i])),
         h("div", null, h("div", { class: "to" }, r.to), h("div", { class: "for" }, r.for)),
-        r.email ? copyChip(r.to, false) : h("span")));
+        r.email ? copyChip(r.to, false) : r.href ? h("a", { class: "visitlink", href: r.href, target: "_blank", rel: "noopener noreferrer" }, "Open site", ic(IC.ext)) : h("span")));
     });
     var unsure = h("section", { class: "section", id: "unsure" },
       secHead("04", "When you don't know the answer"),
@@ -1142,7 +1152,7 @@ window.__LOGOP="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABwkAAAF6CAYAAADia2
       h("p", { class: "subt" }, G.prompts.body), prompts);
 
     var foot = h("div", { class: "foot" },
-      h("div", { class: "l" }, h("img", { src: LOGO_P, alt: "Brown and Caldwell" }), h("span", null, G.footer)),
+      h("div", { class: "l" }, h("img", { src: LOGO_P, alt: "Brown and Caldwell" }), h("a", { href: G.site, target: "_blank", rel: "noopener noreferrer" }, G.footer)),
       h("div", { class: "m" }, G.meta));
 
     var wrap = h("div", { class: "wrap" }, overview, core, questions(), unsure, team, foot);
